@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: final-task-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: final-task-demo
+  template:
+    metadata:
+      labels:
+        app: final-task-demo
+        track: stable
+    spec:
+      containers:
+        - name: final-task-demo
+          image: "gcr.io/high-office-331319/final-task-demo:v2"
+          ports:
+            - name: http
+              containerPort: 3000

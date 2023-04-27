@@ -1,0 +1,18 @@
+steps:
+#Build the image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/high-office-331319/final-task:v1', '.']
+  timeout: 180s
+
+#Push the image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/high-office-331319/final-task:v1']
+
+# deploy container image to GKE
+- name: "gcr.io/cloud-builders/gke-deploy:stable"
+  args:
+  - run
+  - --filename=deployment.yaml
+  - --image=gcr.io/high-office-331319/final-task:v1
+  - --location=us-central1-a
+  - --cluster=final-task-cluster
